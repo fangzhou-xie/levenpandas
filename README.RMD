@@ -155,11 +155,31 @@ Also, you can only pass 'str' for these keywords, as the `fuzzymerge`
 function only supports single-column merging.
 
 What is more, you can also choose the merge behavior by `how` keyword.
+As in `pandas.DataFrame.merge`, you choose one from the following:
+`['inner', 'outer', 'left', 'right']`,
+and its behavior is explained
+[here](https://pandas.pydata.org/pandas-docs/stable/user_guide/merging.html).
 
 ```
 >>> merged = fuzzymerge(df1, df2, left_on='journal1', right_on='journal2', how='left')
->>> merged.dropna()
 ```
+
+If you have relatively large dataset that you want to merge,
+you can pass positive/negative integer values for `multi` argument.
+A positive value means that you are choosing that many of cores
+to do the merging, while a negative integer means that
+you leave that many of cores **NOT** do the merging.
+
+What is more, there is a parameter `threshold` to control the level
+of confidence you wish to restrict on the similarity between strings.
+This is calculated by `python-Levenshtein` package,
+and should be between 0 and 1.
+The default value is 0.9, meaning that if two strings are compared against
+each other, and they have similarity ratio over 0.9, they will
+be regarded as the *same* one and they will be merged together.
+If you want to use a stricter test, you should change this paramter
+closer to 1; while if you want to relax it, you should use a smaller positive
+value.
 
 ## License
 Under MIT license.
