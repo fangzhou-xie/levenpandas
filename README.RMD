@@ -92,5 +92,74 @@ This utility function will return you a test dataset.
 from levenpandas import testpath
 ```
 
+## A Guided Example
+
+```
+>>> # first load the function and test dataset
+>>> from levenpandas import fuzzymerge, testpath
+>>> import pandas as pd
+
+>>> # load test dataset
+>>> df = pd.read_csv(testpath())
+```
+
+After loading this file, you notice that it consist of a list of journals
+in Economics. This sample dataset is, in fact, coming from two sources,
+and I fuzzy-merge them together before writing this package.
+
+```
+>>> df[['journal1','journal2']]
+                        journal1                                           journal2
+0   Journal of Political Economy                       Journal of Political Economy
+1                            NaN                       Journal of Political Ecology
+2   The American Economic Review                       The American Economic Review
+3                Economic Theory                                    Economic Theory
+4                  Public Choice                                      Public Choice
+..                           ...                                                ...
+82                           NaN   Journal of the American Research Center in Egypt
+83                           NaN                                  Food Microbiology
+84                           NaN               Journal of Electronics Manufacturing
+85                           NaN  International Journal of Global Environmental ...
+86                           NaN                                           Currents
+
+```
+
+You should realize that the rows are perfectly merged already, but let's
+divide the dataframe into two and test our package.
+
+```
+>>> df1 = df[['journal1']]
+>>> df2 = df[['journal2']]
+>>> merged = fuzzymerge(df1, df2, left_on='journal1', right_on='journal2')
+>>> merged.dropna()
+journal1                          journal2
+0        Journal of Political Economy      Journal of Political Economy
+1        Journal of Political Economy      Journal of Political Ecology
+3        The American Economic Review      The American Economic Review
+4                     Economic Theory                Econometric Theory
+5                     Economic Theory                Econometric Theory
+..                                ...                               ...
+70    The Review of Financial Studies       Review of Financial Studies
+71             The Journal of Finance                Journal of Finance
+72     The Journal of Law & Economics  The Journal of Law and Economics
+73  The Journal of Risk and Insurance     Journal of Risk and Insurance
+74  The Journal of Economic Education     Journal of Economic Education
+```
+
+Here, we need to specify on which columns should we merge.
+If the columns from both side of DataFrame happens to have the same name,
+you can just use 'on' keyword; otherwise, you have to use
+'left_on' and 'right_on' to let the function know what is the name
+of the column for each of the DataFrame.
+Also, you can only pass 'str' for these keywords, as the `fuzzymerge`
+function only supports single-column merging.
+
+What is more, you can also choose the merge behavior by `how` keyword.
+
+```
+>>> merged = fuzzymerge(df1, df2, left_on='journal1', right_on='journal2', how='left')
+>>> merged.dropna()
+```
+
 ## License
 Under MIT license.

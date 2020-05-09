@@ -2,19 +2,18 @@ import pdb
 from time import time
 
 import pandas as pd
-
 from levenpandas import fuzzymerge
 
 
 def main():
-    test = pd.read_csv('testbig.csv')
+    test = pd.read_csv('test.csv')
     # test = test.dropna(subset=['displayname', 'journal_jstor'])
     print(test)
-    df1 = test.copy()[['journal_jstor', 'issn']]
-    df2 = test.copy()[['displayname', 'journalid']]
-    matched = fuzzymerge(df1, df2, how='inner',  # multi=6,
-                         left_on='journal_jstor', right_on='displayname')
-    # pdb.set_trace()
+    df1 = test.copy()[['journal1']]
+    df2 = test.copy()[['journal2']]
+    matched = fuzzymerge(df1, df2, how='outer',  # multi=6,
+                         left_on='journal1', right_on='journal2')
+    pdb.set_trace()
     print('test results')
     print(matched)
     matched.to_csv('testresult.csv', index=False)

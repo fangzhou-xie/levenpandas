@@ -6,7 +6,7 @@ from itertools import product
 # Levenshtein.ratio(str1, str2)
 import Levenshtein
 # import numpy as np
-import pandas as pd
+# import pandas as pd
 from pandas import DataFrame
 
 # from operator import itemgetter
@@ -60,12 +60,30 @@ def fuzzymerge(left, right, uselower=True, threshold=0.9, multi=0,
     elif how == 'right' or how == 'outer':
         merge_on, delete_on = 'rightind', 'leftind'
 
-    merged = (mergeleft
-              .drop(columns=[delete_on])
-              .merge(mergeright, how=how, on=merge_on)
-              .drop_duplicates(subset=['leftind', 'rightind'])
-              .drop(columns=['leftind', 'rightind'])
-              .reset_index(drop=True))
+    if how == 'left':
+        merged = (mergeleft
+                  .drop(columns=[delete_on])
+                  .merge(mergeright, how=how, on=merge_on)
+                  .drop_duplicates(subset=[left_on, right_on])
+                  .drop(columns=['leftind', 'rightind'])
+                  .dropna(subset=[left_on])
+                  .reset_index(drop=True))
+    elif how == 'right':
+        merged = (mergeleft
+                  .drop(columns=[delete_on])
+                  .merge(mergeright, how=how, on=merge_on)
+                  .drop_duplicates(subset=[left_on, right_on])
+                  .drop(columns=['leftind', 'rightind'])
+                  .dropna(subset=[right_on])
+                  .reset_index(drop=True))
+    else:
+        merged = (mergeleft
+                  .drop(columns=[delete_on])
+                  .merge(mergeright, how=how, on=merge_on)
+                  .drop_duplicates(subset=[left_on, right_on])
+                  .drop(columns=['leftind', 'rightind'])
+                  .dropna(subset=[left_on, right_on])
+                  .reset_index(drop=True))
 
     return merged
 
