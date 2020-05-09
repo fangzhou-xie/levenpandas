@@ -13,7 +13,6 @@ from pandas import DataFrame
 # from time import time
 
 
-
 def fuzzymerge(left, right, uselower=True, threshold=0.9, multi=0,
                how='outer', on=None, left_on=None, right_on=None,
                left_index=False, right_index=False):
@@ -80,20 +79,26 @@ def _levenshtein(str_a, ind_str_b):
     return (ind_str_b[0], Levenshtein.ratio(str_a, ind_str_b[1]))
 
 
+def _levenshtein_mp(list2, threshold, item1):
+    matchedindices = []
+    ind, x = item1
+    ind_distances = [_levenshtein(x, y) for y in list2]
+    # pdb.set_trace()
+    rightindices = [i[0] for i in ind_distances if i[1] >= threshold]
+    matchedindices += list(product([ind], rightindices))
+    return matchedindices
+
+
 def _match_by_left(list1, list2, threshold, multi):
     "fuzzy matching by left"
     matchedindices = []
 
     if multi:
-        p = mp.Pool(multi)
-        for ind, leftentry in list1:
-            singlefunc = partial(_levenshtein, leftentry)
-            ind_distances = p.map(singlefunc, list2)
-            # pdb.set_trace()
-            rightindices = [i[0] for i in ind_distances if i[1] >= threshold]
-            matchedindices += list(product([ind], rightindices))
-        p.close()
-        p.join()
+        singlefunc = partial(_levenshtein_mp, list2, threshold)
+        with mp.Pool(multi) as p:
+            results = p.map(singlefunc, list1)
+
+        matchedindices = [i for s in results for i in s]
 
     else:
         for ind, leftentry in list1:
