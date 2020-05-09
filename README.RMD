@@ -44,7 +44,9 @@ In my case, I need something that gives me a similar sytax as `pandas`,
 could work with `pandas.DataFrame`, and possibly with parallel support.
 And these three features are the main building blocks of this `levenpandas`.
 
-There is only one function that has been exposed: `fuzzymerge()`.
+There is only one function that has been exposed: `fuzzymerge()`;
+yet there is another utility function that will give you a sample dataset
+to play with.
 
 Example:
 
@@ -82,6 +84,13 @@ For example, you can choose `multi=4`, which means that there will be
 the number of your CPU cores minus 2 as your number of processes.
 
 The merged result, not surprisingly, is a `pandas.DataFrame`.
+
+The sample test data is given by the following function: `testpath()`.
+This utility function will return you a test dataset.
+
+```
+from levenpandas import testpath
+```
 
 ## License
 Under MIT license.
