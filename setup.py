@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name='levenpandas',         # How you named your package folder (MyLib)
     packages=['levenpandas'],   # Chose the same as "name"
-    version='0.1.4',      # Start with a small number and increase it with every change you make
+    version='0.1.5',      # Start with a small number and increase it with every change you make
     # Chose a license from here: https://help.github.com/articles/licensing-a-repository
     license='MIT',
     # Give a short description about your library
@@ -13,7 +13,7 @@ setup(
     # Provide either the link to your github or to your website
     url='https://github.com/mark-fangzhou-xie/levenpandas',
     # I explain this later on
-    download_url='https://github.com/mark-fangzhou-xie/levenpandas/archive/v_0.1.4.tar.gz',
+    download_url='https://github.com/mark-fangzhou-xie/levenpandas/archive/v_0.1.5.tar.gz',
     # Keywords that define your package best
     keywords=['Levenshtein', 'pandas'],
     install_requires=[            # I get to this in a second
@@ -34,4 +34,7 @@ setup(
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
     ],
+    package_data={
+        'levenpandas': ['*.csv'],
+    },
 )
