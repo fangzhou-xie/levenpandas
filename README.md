@@ -54,7 +54,18 @@ Example:
 
 As you probably have notices, the syntax follows a similar usage with
 that of the `pandas.DataFrame.merge`. If you are familiar with `pandas`,
-you should be quite comfortable using the “fuzzy” version.
+you should be quite comfortable using the “fuzzy” version. You can use
+`how`, `on`, `left_on`, and `right_on` just as you are using
+`pandas.DataFrame.merge`.
+
+Moreover, there is also parallel support by native
+`multiprocessing.Pool`. You can choose `multi` as the number of
+processes you want to run. Positive integers means that you are choose
+`multi` number of processes, while negative ingeters means that you are
+choosing all available but `multi` number of processes. For example, you
+can choose `multi=4`, which means that there will be 4 threads running.
+However, if you choose `multi=-2`, that means you will use the number of
+your CPU cores minus 2 as your number of processes.
 
 The merged result, not surprisingly, is a `pandas.DataFrame`.
 
