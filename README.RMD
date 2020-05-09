@@ -1,0 +1,8 @@
+---
+title: "levenpandas: merging pandas dataframes by Levenshtein distance"
+author: Fangzhou Xie (fangzhou[dot]xie[at]nyu[dot]edu)
+# date: "`r format(Sys.time(), '%B %d, %Y')`"
+output:
+    github_document:
+        pandoc_args: --webtex=http://chart.apis.google.com/chart?cht=tx&chl=
+---
