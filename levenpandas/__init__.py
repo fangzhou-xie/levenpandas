@@ -1,1 +1,1 @@
-from levenpandas import levenpandas
+from levenpandas import fuzzymerge
