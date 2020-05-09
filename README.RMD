@@ -49,5 +49,28 @@ There is only one function that has been exposed: `fuzzymerge()`.
 Example:
 
 ```
-from levenpandas.levenpandas import fuzzymerge
+from levenpandas import fuzzymerge
 ```
+
+```
+left       : dataframe 1
+right      : dataframe 2
+uselower   : bool, whether to match by the lower case, default True
+threshold  : float, threshold to determine similarity given by Levenshtein distance,
+             default 0.9
+multi      : int, processes to be used for multiprocessing, default 0
+how        : merge type, 'outer', 'inner', 'left', 'right', default 'outer'
+on         : the name of columns to be matched in both dataframes, default None
+left_on    : name of column in dataframe 1
+right_on   : name of column in dataframe 2
+```
+
+As you probably have notices, the syntax follows a similar usage with
+that of the `pandas.DataFrame.merge`.
+If you are familiar with `pandas`, you should be quite comfortable
+using the "fuzzy" version.
+
+The merged result, not surprisingly, is a `pandas.DataFrame`.
+
+## License
+Under MIT license.
