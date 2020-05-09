@@ -13,7 +13,7 @@ setup(
     # Provide either the link to your github or to your website
     url='https://github.com/mark-fangzhou-xie/levenpandas',
     # I explain this later on
-    download_url='https://github.com/mark-fangzhou-xie/levenpandas/archive/v_0.1.tar.gz',
+    download_url='https://github.com/mark-fangzhou-xie/levenpandas/archive/v_0.1.1.tar.gz',
     # Keywords that define your package best
     keywords=['Levenshtein', 'pandas'],
     install_requires=[            # I get to this in a second

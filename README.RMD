@@ -35,5 +35,19 @@ I wish to match two columns of `pandas.DataFrame` object fuzzy matching,
 and wish to do so by evaluating the Levenshtein distance between
 each pair of elements in the two columns.
 
-There are a number of good packages, including `fuzzywuzzy`, `fuzzy-pandas`,
-but they turns out to be slow in my application.
+There are a number of good packages, including `fuzzywuzzy`, `fuzzy-pandas`.
+`fuzzy-pandas` turns out to be slow in my application,
+while `fuzzywuzzy` reports the similarity ratio range between 0-100,
+and round it to integers.
+
+In my case, I need something that gives me a similar sytax as `pandas`,
+could work with `pandas.DataFrame`, and possibly with parallel support.
+And these three features are the main building blocks of this `levenpandas`.
+
+There is only one function that has been exposed: `fuzzymerge()`.
+
+Example:
+
+```
+from levenpandas.levenpandas import fuzzymerge
+```
