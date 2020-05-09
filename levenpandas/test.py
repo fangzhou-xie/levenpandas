@@ -9,8 +9,8 @@ def main():
     test = pd.read_csv('test.csv')
     # test = test.dropna(subset=['displayname', 'journal_jstor'])
     print(test)
-    df1 = test.copy()[['journal1']]
-    df2 = test.copy()[['journal2']]
+    df1 = test.copy()[['rank', 'journal1', 'issn']]
+    df2 = test.copy()[['normalizedjournal2', 'journal2', 'journalid']]
     matched = fuzzymerge(df1, df2, how='outer',  # multi=6,
                          left_on='journal1', right_on='journal2')
     pdb.set_trace()

@@ -76,13 +76,22 @@ def fuzzymerge(left, right, uselower=True, threshold=0.9, multi=0,
                   .drop(columns=['leftind', 'rightind'])
                   .dropna(subset=[right_on])
                   .reset_index(drop=True))
-    else:
+    elif how == 'inner':
         merged = (mergeleft
                   .drop(columns=[delete_on])
                   .merge(mergeright, how=how, on=merge_on)
                   .drop_duplicates(subset=[left_on, right_on])
                   .drop(columns=['leftind', 'rightind'])
                   .dropna(subset=[left_on, right_on])
+                  .reset_index(drop=True))
+
+    elif how == 'outer':
+        merged = (mergeleft
+                  .drop(columns=[delete_on])
+                  .merge(mergeright, how=how, on=merge_on)
+                  .drop_duplicates(subset=[left_on, right_on])
+                  .drop(columns=['leftind', 'rightind'])
+                  .dropna(subset=[left_on, right_on], how='all')
                   .reset_index(drop=True))
 
     return merged
