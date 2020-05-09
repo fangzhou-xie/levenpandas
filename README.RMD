@@ -28,3 +28,12 @@ There are only two packages that are imported by this `levenpandas`:
 `pandas` and `python-Levenshtein`.
 They are listed as the requirements of this package, and you should
 have them after installing `levenpandas`.
+
+## Description
+
+I wish to match two columns of `pandas.DataFrame` object fuzzy matching,
+and wish to do so by evaluating the Levenshtein distance between
+each pair of elements in the two columns.
+
+There are a number of good packages, including `fuzzywuzzy`, `fuzzy-pandas`,
+but they turns out to be slow in my application.
